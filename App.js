@@ -1,8 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, {Component} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Deck from "./src/Deck";
-
+import {Card, Button} from "react-native-elements";
 
 const DATA = [
   { id: 1, text: 'Card #1', uri: 'http://imgs.abduzeedo.com/files/paul0v2/unsplash/unsplash-04.jpg' },
@@ -15,12 +15,32 @@ const DATA = [
   { id: 8, text: 'Card #8', uri: 'http://imgs.abduzeedo.com/files/paul0v2/unsplash/unsplash-01.jpg' },
 ];
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-     <Deck />
-    </View>
-  );
+class App extends Component{
+
+  renderCard(item){
+    return(
+        <Card
+          title={item.text}
+          image={{uri: item.uri}}
+        >
+          <Text style={{marginBottom: 10}}>I can customise the card further</Text>
+          <Button
+              icon={{name: 'code'}}
+              backgroundColor="#03a9F4"
+              title={"View Now"}
+          />
+        </Card>
+    );
+  }
+
+
+  render() {
+    return (
+        <View style={styles.container}>
+          <Deck data={DATA}  renderCard={this.renderCard}/>
+        </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -29,3 +49,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
 });
+
+export default App;
